@@ -18,7 +18,7 @@ python /your_path/qwen72B.py
 ```
 
 请确保替换路径 /your_path/qwen72B.py 为实际的文件路径。这个脚本文件包含了与DashScope API交互的功能，并处理对话交互逻辑。
-### aip_key.txt
+### api_key.txt
 您需要手动添加DashScope API密钥到 api_key.txt 文件中。（注意：请不要将 api_key.txt 文件提交到 Git 仓库中。）
 请确保将其放在与 qwen72B.py 同一目录下。
 百炼aip申请可以到[阿里云百炼官网](https://bailian.console.aliyun.com/),个人用户的话价格相当便宜，而且有几百万字的试用
