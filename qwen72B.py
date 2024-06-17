@@ -3,7 +3,7 @@ import random
 from http import HTTPStatus
 
 # Constants
-API_KEY = 'sk-c9e766bca8fd4aeabd652a5d45c2199b'
+API_KEY = 'your_api_key_here'
 MODEL_NAME = 'qwen1.5-72b-chat'
 SEED_MIN = 1
 SEED_MAX = 10000
