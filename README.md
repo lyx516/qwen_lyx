@@ -6,6 +6,7 @@ qwen_lyx
 本项目为纯个人使用，基于qwen—72B项目，使用DashScope API进行对话和回复。
 可以实现在终端实现多轮对话。
 ![image](https://github.com/lyx516/qwen_lyx/blob/main/assets/1.gif)
+
 ## 文件说明:
 
 ### qwen72B.py

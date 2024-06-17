@@ -70,6 +70,7 @@ def call_api_with_history(user_input):
 
 if __name__ == '__main__':
     while True:
+        print("")
         user_input = input("请输入您的问题或指令 (输入 '\q' 结束对话): ")
         if user_input.lower() == '\q':
             break
