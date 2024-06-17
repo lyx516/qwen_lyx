@@ -4,7 +4,8 @@ qwen_lyx
 
 ## 简介:
 本项目为纯个人使用，基于qwen—72B项目，使用DashScope API进行对话和回复。
-可以实现在终端实现多轮对话。![GIF animation example](https://github.com/qwen72B/qwen_lyx/blob/main/qwen_lyx.gif)
+可以实现在终端实现多轮对话。
+![GIF animation example](https://github.com/qwen72B/qwen_lyx/blob/main/qwen_lyx.gif)
 
 ## 文件说明:
 
