@@ -3,8 +3,8 @@
 qwen_lyx
 
 ## 简介:
-本项目为纯个人使用，基于qwen—72B项目，使用DashScope API进行对话和回复。
-可以实现在终端实现多轮对话。
+本项目为纯个人使用，基于qwen—72B项目（由阿里云开源），使用DashScope API进行对话和回复，主要实现了终端接受流式信息，并进行多轮对话。
+
 ![image](https://github.com/lyx516/qwen_lyx/blob/main/assets/1.gif)
 
 ## 文件说明:
@@ -36,7 +36,7 @@ pip install dashscope
 ```
 python /your_path/qwen72B.py
 ```
-若你已经把qwen.sh脚本添加到环境变量中，可以直接运行：(就像上方动图所展示的那样)
-```
+若你已经把qwen.sh脚本添加到环境变量中，可以直接运行：(像上方动图所展示的那样)
+```bash
 qwen
 ```
