@@ -3,7 +3,8 @@ import random
 from http import HTTPStatus
 
 # Constants
-API_KEY = 'your_api_key_here'
+with open('/Users/liyuxuan/Applications/qwen/api_key.txt', 'r') as file:
+    API_KEY = file.read()
 MODEL_NAME = 'qwen1.5-72b-chat'
 SEED_MIN = 1
 SEED_MAX = 10000
