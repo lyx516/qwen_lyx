@@ -23,12 +23,23 @@ python /your_path/qwen72B.py
 请确保将其放在与 qwen72B.py 同一目录下。
 百炼aip申请可以到[阿里云百炼官网](https://bailian.console.aliyun.com/),个人用户的话价格相当便宜，而且有几百万字的试用
 
-### qwen.sh
+### chat.sh
 
 这是用于在终端上运行 qwen72B.py 脚本的脚本文件。请设置其中路径为你的路径qwen72B.py文件路径，建议以软连接形式添加至环境变量中。
+```bash
+# 帮助信息
+function usage() {
+    echo "用法: $0 [-h] [-s] [-m] [-o]"
+    echo "  -h    显示帮助信息"
+    echo "  -s    将对话保存为Markdown文件"
+    echo "  -o    在保存文件后自动打开文件"
+    exit 1
+}
+```
+
 ## 安装
 为了运行这个项目，您需要安装DashScope包。您可以使用以下命令安装它：
-```
+
 pip install dashscope
 ```
 ## 运行
