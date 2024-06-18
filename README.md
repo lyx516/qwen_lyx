@@ -1,9 +1,9 @@
-# 项目名称:
 
-qwen_lyx
+
+# qwen_lyx
 
 ## 简介:
-本项目为纯个人使用，基于qwen—72B项目（由阿里云开源），使用DashScope API 进行对话和回复，主要实现了终端接受流式信息，并进行多轮对话。下图转为gif后自动慢放了，实际响应速度要快得多。
+个人使用，基于qwen—72B项目（由阿里云开源），使用DashScope API 进行对话和回复，主要实现了终端接受流式信息，并进行多轮对话。下图转为gif后自动慢放了，实际响应速度要快得多。
 
 ![image](https://github.com/lyx516/qwen_lyx/blob/main/assets/1.gif)
 
