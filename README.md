@@ -48,7 +48,7 @@ usage() {
 
 ## 安装
 为了运行这个项目，您需要安装DashScope包。您可以使用以下命令安装它：
-
+```
 pip install dashscope
 ```
 ## 运行
@@ -56,7 +56,8 @@ pip install dashscope
 ```
 python /your_path/qwen72B.py
 ```
-若你已经把qwen.sh脚本添加到环境变量中，可以直接运行：(像上方动图所展示的那样)
+chat.sh脚本添加到环境变量中，可以直接运行：(像上方动图所展示的那样)
 ```bash
-qwen
+chat
 ```
+
