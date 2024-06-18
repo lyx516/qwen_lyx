@@ -25,6 +25,7 @@ python /your_path/qwen72B.py
 
 ### chat.sh
 
+
 这是用于在终端上运行 qwen72B.py 脚本的脚本文件。请设置其中路径为你的路径qwen72B.py文件路径，建议以软连接形式添加至环境变量中。
 ```bash
 
