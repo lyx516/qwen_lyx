@@ -1,3 +1,4 @@
+#!/opt/homebrew/anaconda3/bin/python
 import dashscope
 import random
 from http import HTTPStatus
@@ -6,7 +7,7 @@ from colorama import Fore, Style
 # Constants
 with open('/Users/liyuxuan/Applications/qwen/api_key.txt', 'r') as file:
     API_KEY = file.read()
-MODEL_NAME = 'qwen1.5-72b-chat'
+MODEL_NAME = 'qwen2-72b-instruct'
 SEED_MIN = 1
 SEED_MAX = 10000
 RESULT_FORMAT = 'message'
@@ -88,12 +89,12 @@ if __name__ == '__main__':
     input_count = 0
     while True:
         if input_count == 0:
-            user_input = input("\n请输入您的问题或指令 (输入 '\q' 结束对话): ")
+            user_input = input(f"\n{Fore.YELLOW}请输入您的问题或指令 (输入 {Fore.BLUE}'\\q'{Fore.YELLOW} 结束对话):{Style.RESET_ALL} ")
         else:
             user_input = input(f"{Fore.RED}>>{Style.RESET_ALL} ")
 
         if user_input.lower() == '\q':
-            break
+            break\
 
         # Check and handle long inputs
         if len(user_input) > MAX_INPUT_LENGTH:
