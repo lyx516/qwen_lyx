@@ -27,13 +27,21 @@ python /your_path/qwen72B.py
 
 这是用于在终端上运行 qwen72B.py 脚本的脚本文件。请设置其中路径为你的路径qwen72B.py文件路径，建议以软连接形式添加至环境变量中。
 ```bash
-# 帮助信息
-function usage() {
-    echo "用法: $0 [-h] [-s] [-m] [-o]"
-    echo "  -h    显示帮助信息"
-    echo "  -s    将对话保存为Markdown文件"
-    echo "  -o    在保存文件后自动打开文件"
-    exit 1
+
+# 打印帮助信息
+usage() {
+  echo "Usage: $0 [options]"
+  echo "Options:"
+  echo "  -m, --model MODEL_NAME        Set the model name (default: $MODEL_NAME)"
+  echo "  -s, --seed-min SEED_MIN       Set the minimum seed value (default: $SEED_MIN)"
+  echo "  -S, --seed-max SEED_MAX       Set the maximum seed value (default: $SEED_MAX)"
+  echo "  -f, --format RESULT_FORMAT    Set the result format (default: $RESULT_FORMAT)"
+  echo "  -t, --stream STREAM           Set stream option (default: $STREAM)"
+  echo "  -o, --output OUTPUT_IN_FULL   Set output in full option (default: $OUTPUT_IN_FULL)"
+  echo "  -l, --max-input MAX_INPUT_LENGTH Set maximum input length (default: $MAX_INPUT_LENGTH)"
+  echo "  -M, --markdown OUTPUT_FILE    Output results in Markdown format to specified file"
+  echo "  -h, --help                    Display this help message"
+}
 }
 ```
 
