@@ -56,8 +56,7 @@ pip install dashscope
 ```
 python /your_path/qwen72B.py
 ```
-chat.sh脚本添加到环境变量中，可以直接运行：(像上方动图所展示的那样)
+若你已经把qwen.sh脚本添加到环境变量中，可以直接运行：(像上方动图所展示的那样)
 ```bash
-chat
+qwen
 ```
-
