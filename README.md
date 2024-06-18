@@ -48,7 +48,7 @@ usage() {
 
 ## 安装
 为了运行这个项目，您需要安装DashScope包。您可以使用以下命令安装它：
-```
+
 pip install dashscope
 ```
 ## 运行
