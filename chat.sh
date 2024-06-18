@@ -1,61 +1,60 @@
 #!/bin/bash
 
-# 获取脚本所在目录的绝对路径
-SCRIPT_DIR=$(cd $(dirname $0); pwd)
-PYTHON_SCRIPT="/Users/liyuxuan/Applications/qwen/qwen72B.py"
-LOG_FILE="$SCRIPT_DIR/conversation_history.md"
+# 设置默认参数
+MODEL_NAME="qwen2-72b-instruct"
+SEED_MIN=1
+SEED_MAX=10000
+RESULT_FORMAT="message"
+STREAM=true
+OUTPUT_IN_FULL=true
+MAX_INPUT_LENGTH=1000
+OUTPUT_MARKDOWN=false
+OUTPUT_FILE="output.md"
 
-# 帮助信息
-function usage() {
-    echo "用法: $0 [-h] [-s] [-m] [-o]"
-    echo "  -h    显示帮助信息"
-    echo "  -s    将对话保存为Markdown文件"
-    echo "  -m    使用Markdown文件格式保存对话"
-    echo "  -o    在保存文件后自动打开文件"
-    exit 1
+# 打印帮助信息
+usage() {
+  echo "Usage: $0 [options]"
+  echo "Options:"
+  echo "  -m, --model MODEL_NAME        Set the model name (default: $MODEL_NAME)"
+  echo "  -s, --seed-min SEED_MIN       Set the minimum seed value (default: $SEED_MIN)"
+  echo "  -S, --seed-max SEED_MAX       Set the maximum seed value (default: $SEED_MAX)"
+  echo "  -f, --format RESULT_FORMAT    Set the result format (default: $RESULT_FORMAT)"
+  echo "  -t, --stream STREAM           Set stream option (default: $STREAM)"
+  echo "  -o, --output OUTPUT_IN_FULL   Set output in full option (default: $OUTPUT_IN_FULL)"
+  echo "  -l, --max-input MAX_INPUT_LENGTH Set maximum input length (default: $MAX_INPUT_LENGTH)"
+  echo "  -M, --markdown OUTPUT_FILE    Output results in Markdown format to specified file"
+  echo "  -h, --help                    Display this help message"
 }
 
-# 参数解析
-SAVE_MARKDOWN=false
-OPEN_AFTER_SAVE=false
-while getopts "hsmo" opt; do
-    case ${opt} in
-        h)
-            usage
-            ;;
-        s)
-            SAVE_MARKDOWN=true
-            ;;
-        m)
-            SAVE_MARKDOWN=true
-            ;;
-        o)
-            OPEN_AFTER_SAVE=true
-            ;;
-        *)
-            usage
-            ;;
-    esac
+# 解析命令行参数
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    -m|--model) MODEL_NAME="$2"; shift ;;
+    -s|--seed-min) SEED_MIN="$2"; shift ;;
+    -S|--seed-max) SEED_MAX="$2"; shift ;;
+    -f|--format) RESULT_FORMAT="$2"; shift ;;
+    -t|--stream) STREAM="$2"; shift ;;
+    -o|--output) OUTPUT_IN_FULL="$2"; shift ;;
+    -l|--max-input) MAX_INPUT_LENGTH="$2"; shift ;;
+    -M|--markdown) OUTPUT_MARKDOWN=true; OUTPUT_FILE="$2"; shift ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "Unknown parameter passed: $1"; usage; exit 1 ;;
+  esac
+  shift
 done
 
-# 运行Python脚本
-if $SAVE_MARKDOWN; then
-    python3 "$PYTHON_SCRIPT" | tee "$LOG_FILE"
-    if $OPEN_AFTER_SAVE; then
-        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            xdg-open "$LOG_FILE"
-        elif [[ "$OSTYPE" == "darwin"* ]]; then
-            open "$LOG_FILE"
-        elif [[ "$OSTYPE" == "cygwin" ]]; then
-            cygstart "$LOG_FILE"
-        elif [[ "$OSTYPE" == "msys" ]]; then
-            start "$LOG_FILE"
-        elif [[ "$OSTYPE" == "win32" ]]; then
-            start "$LOG_FILE"
-        else
-            echo "无法自动打开文件，请手动打开 $LOG_FILE"
-        fi
-    fi
+# 导出参数为环境变量
+export MODEL_NAME
+export SEED_MIN
+export SEED_MAX
+export RESULT_FORMAT
+export STREAM
+export OUTPUT_IN_FULL
+export MAX_INPUT_LENGTH
+
+# 运行 Python 脚本并将结果输出为Markdown文件（如果启用）
+if $OUTPUT_MARKDOWN; then
+  /opt/homebrew/anaconda3/bin/python /Users/liyuxuan/Applications/qwen/qwen72B.py | tee "$OUTPUT_FILE"
 else
-    python3 "$PYTHON_SCRIPT"
+  /opt/homebrew/anaconda3/bin/python /Users/liyuxuan/Applications/qwen/qwen72B.py
 fi
