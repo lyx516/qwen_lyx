@@ -1,1 +1,0 @@
-python /Users/liyuxuan/Applications/qwen/qwen72B.py
