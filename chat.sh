@@ -24,7 +24,7 @@ usage() {
   echo "  -o, --output OUTPUT_IN_FULL   Set output in full option (default: $OUTPUT_IN_FULL)"
   echo "  -l, --max-input MAX_INPUT_LENGTH Set maximum input length (default: $MAX_INPUT_LENGTH)"
   echo "  -M, --markdown OUTPUT_FILE    Output results in Markdown format to specified file"
-  echo "  -L, --use-alternate           Use alternate script qwen72B_l.py"
+  echo "  -L, --use-alternate           Enter long text with line breaks"
   echo "  -h, --help                    Display this help message"
 }
 
