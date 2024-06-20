@@ -72,22 +72,24 @@ def call_api_with_history(user_input):
     except Exception as e:
         print(f'An error occurred: {e}')
 
-def read_multiline_input(prompt="请输入您的问题或指令（输入 '\\e' 结束对话）: "):
+def read_multiline_input(prompt="请输入您的问题或指令（输入 '\\e' 结束对话，输入 '\\q' 退出程序）: "):
     print(prompt, end="", flush=True)
     user_input_lines = []
     while True:
-        line = sys.stdin.readline()
-        if line == '\n':  # Skip empty lines
+        line = sys.stdin.readline().strip()
+        if line == '':  # Skip empty lines
             continue
-        if line.strip() == '\\e':  # End input on '\\e'
+        if line == '\\e':  # End input on '\\e'
             break
-        user_input_lines.append(line.rstrip('\n'))  # Remove trailing newline
+        if line == '\\q':  # Quit input on '\\q'
+            return '\\q'
+        user_input_lines.append(line)
     return '\n'.join(user_input_lines)  # Join lines into single string
 
 if __name__ == '__main__':
     while True:
         user_input = read_multiline_input()
-        if user_input.lower().strip() == '\\q':
+        if user_input == '\\q':
             print("对话已结束。")
             break
 
