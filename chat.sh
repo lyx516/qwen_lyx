@@ -10,6 +10,7 @@ OUTPUT_IN_FULL=true
 MAX_INPUT_LENGTH=1000
 OUTPUT_MARKDOWN=false
 OUTPUT_FILE="output.md"
+USE_ALTERNATE_SCRIPT=false
 
 # 打印帮助信息
 usage() {
@@ -23,6 +24,7 @@ usage() {
   echo "  -o, --output OUTPUT_IN_FULL   Set output in full option (default: $OUTPUT_IN_FULL)"
   echo "  -l, --max-input MAX_INPUT_LENGTH Set maximum input length (default: $MAX_INPUT_LENGTH)"
   echo "  -M, --markdown OUTPUT_FILE    Output results in Markdown format to specified file"
+  echo "  -L, --use-alternate           Use alternate script qwen72B_l.py"
   echo "  -h, --help                    Display this help message"
 }
 
@@ -37,6 +39,7 @@ while [[ "$#" -gt 0 ]]; do
     -o|--output) OUTPUT_IN_FULL="$2"; shift ;;
     -l|--max-input) MAX_INPUT_LENGTH="$2"; shift ;;
     -M|--markdown) OUTPUT_MARKDOWN=true; OUTPUT_FILE="$2"; shift ;;
+    -L|--use-alternate) USE_ALTERNATE_SCRIPT=true; ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown parameter passed: $1"; usage; exit 1 ;;
   esac
@@ -52,9 +55,16 @@ export STREAM
 export OUTPUT_IN_FULL
 export MAX_INPUT_LENGTH
 
+# 选择运行的Python脚本
+if $USE_ALTERNATE_SCRIPT; then
+  SCRIPT_PATH="/Users/liyuxuan/Applications/qwen/qwen72B_l.py"
+else
+  SCRIPT_PATH="/Users/liyuxuan/Applications/qwen/qwen72B.py"
+fi
+
 # 运行 Python 脚本并将结果输出为Markdown文件（如果启用）
 if $OUTPUT_MARKDOWN; then
-  /opt/homebrew/anaconda3/bin/python /Users/liyuxuan/Applications/qwen/qwen72B.py | tee "$OUTPUT_FILE"
+  /opt/homebrew/anaconda3/bin/python "$SCRIPT_PATH" | tee "$OUTPUT_FILE"
 else
-  /opt/homebrew/anaconda3/bin/python /Users/liyuxuan/Applications/qwen/qwen72B.py
+  /opt/homebrew/anaconda3/bin/python "$SCRIPT_PATH"
 fi
