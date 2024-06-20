@@ -3,10 +3,11 @@ import dashscope
 import random
 from http import HTTPStatus
 from colorama import Fore, Style
+import sys
 
 # Constants
 with open('/Users/liyuxuan/Applications/qwen/api_key.txt', 'r') as file:
-    API_KEY = file.read()
+    API_KEY = file.read().strip()
 MODEL_NAME = 'qwen2-72b-instruct'
 SEED_MIN = 1
 SEED_MAX = 10000
@@ -21,16 +22,12 @@ dashscope.api_key = API_KEY
 # Initialize conversation history
 conversation_history = []
 
-input_count = 0
-
-
 def remove_common_prefix(s1, s2):
     """Remove the common prefix from two strings."""
     if s2.startswith(s1):
         return s2[len(s1):]
     else:
         return s2
-
 
 def process_response(response):
     """Processes the API response and extracts the new content."""
@@ -41,12 +38,11 @@ def process_response(response):
               f'error code: {response.code}, error message: {response.message}')
         return ''
 
-
 def call_api_with_history(user_input):
     """Call the API with updated conversation history and handle the response."""
     global conversation_history
 
-    # Add user input to conversation history
+    # Process and send user input to the API
     if user_input.strip():
         conversation_history.append({'role': 'user', 'content': user_input})
     else:
@@ -67,42 +63,34 @@ def call_api_with_history(user_input):
         for response in responses:
             s2 = process_response(response)
             s = remove_common_prefix(s1, s2)
-            print(s, end='', flush=True)  # Flush output to ensure it is displayed immediately
+            print(s, end='', flush=True)
             s1 = s2
 
-        # Append model's response to conversation history for next round
         if s2.strip():
             conversation_history.append({'role': 'assistant', 'content': s2})
-        else:
-            print("Error: Assistant response content length must be greater than 0.")
 
     except Exception as e:
         print(f'An error occurred: {e}')
 
-
-def split_long_input(user_input, max_length):
-    """Split long input into smaller chunks."""
-    return [user_input[i:i + max_length] for i in range(0, len(user_input), max_length)]
-
+def read_multiline_input(prompt="请输入您的问题或指令（输入 '\\e' 结束对话）: "):
+    print(prompt, end="", flush=True)
+    user_input_lines = []
+    while True:
+        line = sys.stdin.readline()
+        if line == '\n':  # Skip empty lines
+            continue
+        if line.strip() == '\\e':  # End input on '\\e'
+            break
+        user_input_lines.append(line.rstrip('\n'))  # Remove trailing newline
+    return '\n'.join(user_input_lines)  # Join lines into single string
 
 if __name__ == '__main__':
-    input_count = 0
     while True:
-        if input_count == 0:
-            user_input = input(f"\n{Fore.YELLOW}请输入您的问题或指令 (输入 {Fore.BLUE}'\\q'{Fore.YELLOW} 结束对话):{Style.RESET_ALL} ")
-        else:
-            user_input = input(f"{Fore.RED}>>{Style.RESET_ALL} ")
+        user_input = read_multiline_input()
+        if user_input.lower().strip() == '\\q':
+            print("对话已结束。")
+            break
 
-        if user_input.lower() == '\q':
-            break\
-
-        # Check and handle long inputs
-        if len(user_input) > MAX_INPUT_LENGTH:
-            chunks = split_long_input(user_input, MAX_INPUT_LENGTH)
-            for chunk in chunks:
-                call_api_with_history(chunk)
-        else:
-            call_api_with_history(user_input)
-
-        input_count += 1
-        print('')  # Add a newline after each response
+        # Process the multiline input
+        call_api_with_history(user_input)
+        print()  # Add a newline for separation
